@@ -15,7 +15,7 @@ int main() {
         sub_answer.append(ost % 10, 'v');
         number /= 60;
         if (number != 0) {
-            answer.insert(0,"." + sub_answer);
+            answer.insert(0, "." + sub_answer);
         } else {
             answer.insert(0, sub_answer);
         }
