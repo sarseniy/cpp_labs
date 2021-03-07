@@ -32,3 +32,4 @@
 *.app
 
 /GorPhys/build/
+/build
