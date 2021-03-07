@@ -118,12 +118,13 @@ public:
 	}
 
 	void Multiply(Matrix mtr) {
+		Matrix OldMatrix = *this;
 		for (int i = 0; i < Size; i++) {
 			for (int j = 0; j < Size; j++) {
 				double tmp = 0;
 				for (int k = 0; k < Size; ++k)
 				{
-					tmp += Data[i][k] * mtr.Data[k][j];
+					tmp += OldMatrix.Data[i][k] * mtr.Data[k][j];
 				}
 				Data[i][j] = tmp;
 			}
