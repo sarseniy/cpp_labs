@@ -10,6 +10,8 @@ public:
 		CheckGCD();
 	}
 
+	Fraction(int p) : p(p), q(1) {}
+
 	void Set(int new_p, int new_q) {
 		p = new_p;
 		q = new_q;
@@ -86,7 +88,7 @@ private:
 };
 
 int main() {
-	Fraction a(2, 4);
+	Fraction a(-2, -4);
 
 	a.Print();
 
