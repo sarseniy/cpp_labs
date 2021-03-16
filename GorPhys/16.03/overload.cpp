@@ -40,4 +40,11 @@ int main() {
 	show(a, 5);
 	cout << endl << endl;
 	show(b, 6, 6);
+
+	delete[] a;
+	for (size_t i = 0; i < 6; i++)
+	{
+		delete[] b[i];
+	}
+	delete[] b;
 }
