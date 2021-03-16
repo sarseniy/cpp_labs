@@ -2,7 +2,7 @@
 
 using namespace std;
 
-void show(int ** array, int rows, int columns) {
+void show(int ** array, size_t rows, size_t columns) {
 	for (size_t i = 0; i < rows; i++)
 	{
 		for (size_t j = 0; j < columns; j++)
@@ -13,7 +13,7 @@ void show(int ** array, int rows, int columns) {
 	}
 }
 
-void show(int* array, int num) {
+void show(int* array, size_t num) {
 	for (size_t i = 0; i < num; i++)
 	{
 		cout << array[i] << ' ';
