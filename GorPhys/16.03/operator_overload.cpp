@@ -29,6 +29,27 @@ public:
 	}
 };
 
+struct SubVector
+{
+	double x;
+	double y;
+	double z;
+
+	SubVector(double x, double y, double z) : x(x), y(y), z(z) {}
+};
+
+SubVector operator+ (SubVector first, SubVector second) {
+	return SubVector(first.x + second.x, first.y + second.y, first.z + second.z);
+}
+
+SubVector operator- (SubVector first, SubVector second) {
+	return SubVector(first.x - second.x, first.y - second.y, first.z - second.z);
+}
+
+double operator* (SubVector first, SubVector second) {
+	return first.x * second.x + first.y * second.y + first.z * second.z;
+}
+
 int main() {
 	Vector a(3, 4, 5);
 	Vector b(6, 7, 8);
