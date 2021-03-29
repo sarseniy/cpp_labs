@@ -67,6 +67,7 @@ int main() {
 	ofstream f;
 	for (size_t k = 500; k < 15001; k += 500)
 	{
+
 		vector<double> unsorted;
 		double tmp;
 
@@ -80,6 +81,9 @@ int main() {
 
 
 		{
+			int comparisons = 0;
+			int swaps = 0;
+
 			f.open("bubble.txt", ios::app);
 			auto start = chrono::high_resolution_clock::now();
 
@@ -87,11 +91,12 @@ int main() {
 			{
 				for (size_t j = 0; j < a.size() - i - 1; j++)
 				{
-					if (a[j] > a[j + 1])
+					if (a[j] > a[j + 1] and ++comparisons)
 					{
 						tmp = a[j];
 						a[j] = a[j + 1];
 						a[j + 1] = tmp;
+						swaps++;
 					}
 				}
 			}
@@ -100,12 +105,14 @@ int main() {
 			auto nsec = end - start;
 
 			std::cout << k << ' ';
-			f << k << "\t" << nsec.count() << endl;
+			f << k << "\t" << nsec.count() << '\t' << comparisons << '\t' << swaps << endl;
 
 			f.close();
 		}
 
 		{
+			int comparisons = 0;
+			int swaps = 0;
 			f.open("choice.txt", ios::app);
 			a = unsorted;
 			auto start = chrono::high_resolution_clock::now();
@@ -115,7 +122,7 @@ int main() {
 				int ind = start;
 				for (size_t current = start + 1; current < a.size(); ++current)
 				{
-					if (a[current] < a[ind])
+					if (a[current] < a[ind] and ++comparisons)
 					{
 						ind = current;
 					}
@@ -123,55 +130,60 @@ int main() {
 				tmp = a[ind];
 				a[ind] = a[start];
 				a[start] = tmp;
+				swaps++;
 			}
+
+			auto end = chrono::high_resolution_clock::now();
+			auto nsec = end - start;
+			f << k << "\t" << nsec.count() << '\t' << comparisons << '\t' << swaps << endl;
+			f.close();
+			std::cout << k << ' ';
+		}
+		{
+			int comparisons = 0;
+			int swaps = 0;
+			f.open("insertion.txt", ios::app);
+			a = unsorted;
+			auto start = chrono::high_resolution_clock::now();
+
+			int j;
+			double value;
+
+			for (int i = 1; i < a.size(); i++)
+			{
+				value = a[i];
+				j = i - 1;
+
+				while (j >= 0 and a[j] > value and ++comparisons)
+				{
+					a[j + 1] = a[j];
+					j = j - 1;
+					swaps++;
+				}
+				a[j + 1] = value;
+				swaps++;
+			}
+
+			auto end = chrono::high_resolution_clock::now();
+			auto nsec = end - start;
+			f << k << "\t" << nsec.count() << '\t' << comparisons << '\t' << swaps << endl;
+			f.close();
+			std::cout << k << ' ';
+		}
+			
+		{
+			f.open("merge.txt", ios::app);
+			a = unsorted;
+			auto start = chrono::high_resolution_clock::now();
+
+			merge_sort(&a, 0, a.size() - 1);
 
 			auto end = chrono::high_resolution_clock::now();
 			auto nsec = end - start;
 			f << k << "\t" << nsec.count() << endl;
 			f.close();
-			std::cout << k << ' ';
-
-			{
-				f.open("insertion.txt", ios::app);
-				a = unsorted;
-				auto start = chrono::high_resolution_clock::now();
-
-				int j;
-				double value;
-
-				for (int i = 1; i < a.size(); i++)
-				{
-					value = a[i];
-					j = i - 1;
-
-					while (j >= 0 and a[j] > value)
-					{
-						a[j + 1] = a[j];
-						j = j - 1;
-					}
-					a[j + 1] = value;
-				}
-
-				auto end = chrono::high_resolution_clock::now();
-				auto nsec = end - start;
-				f << k << "\t" << nsec.count() << endl;
-				f.close();
-				std::cout << k << ' ';
-			}
-
-			{
-				f.open("merge.txt", ios::app);
-				a = unsorted;
-				auto start = chrono::high_resolution_clock::now();
-
-				merge_sort(&a, 0, a.size() - 1);
-
-				auto end = chrono::high_resolution_clock::now();
-				auto nsec = end - start;
-				f << k << "\t" << nsec.count() << endl;
-				f.close();
-				std::cout << k << endl;
-			}
+			std::cout << k << endl;
 		}
+		
 	}
 }
