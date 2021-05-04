@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <string>
 #include <iomanip>
 
 using namespace std;
@@ -14,13 +15,16 @@ void print(const vector<double>& vec) {
 	cout << endl;
 }
 
-void save(ofstream& f, vector<double> a)
+void save(int n, vector<double>& a)
 {
+	ofstream f;
+	f.open(to_string(n) + ".txt");
 	for (size_t i = 0; i < a.size(); i++)
 	{
 		f << a[i] << ' ';
 	}
 	f << endl;
+	f.close();
 }
 
 class Scheme
@@ -62,14 +66,14 @@ public:
 	}
 
 	void Solve() {
-		ofstream f;
-		f.open("output.txt");
+
+		
 
 		vector<vector<double>> tmp(2);
 		tmp[0] = U0;
 		tmp[1] = U0;
 
-		save(f, U0);
+		save(0, U0);
 
 		int t_count = 0;
 		for (int t1 = 1; t1 < T / t; t1++)
@@ -82,11 +86,11 @@ public:
 			t_count++;
 			if (t1 % 10 == 0)
 			{
-				save(f, tmp[t1 % 2]);
+				save(t1, tmp[t1 % 2]);
 			}
 		}
 		result = tmp[(t_count - 1) % 2];
-		f.close();
+
 	}
 
 	vector<double> GetResult() {
