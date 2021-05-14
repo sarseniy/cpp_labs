@@ -30,7 +30,7 @@ public:
 	}
 
 
-	template<class T> friend ostream& operator<<(ostream& out, Stack<T> a);
+	template<class Ttype> friend ostream& operator<<(ostream& out, Stack<Ttype> a);
 };
 
 template<class Ttype> ostream& operator<<(ostream& out, Stack<Ttype> vec)
